@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="policlaudio">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta property="og:title" content="Claudio Poli - Fotografia Macro e Naturalistica"/>
+    <meta property="og:description" content="Autore: Claudio Poli fotografo ed escursionista marchigiano,
+										  Filosofia: La bellezza delle cose esiste nella mente di chi le osserva - D.Home,
+										  Categoria: Fotografia Macro e Naturalistica,
+										  Luogo: Molte delle foto presentate sono state scattate presso i Monti del Furlo (Marche),
+										  Contenuto: Fotografia Naturalistica e Macrofotografia o Macro fotografia - Le foto sono
+										  organizzate e classificate scientificamente,
+										  Acquisto: Per consigli, correzioni o informazioni sull'acquisto di foto in formato originale contattare
+										  Claudio Poli all'indirizzo info@policlaudio.com"/>
+    <meta property="og:url" content="http://policlaudio.com"/>
+    <meta property="og:image" content="http://policlaudio.com/img/logo-small.png"/>
+
+    <meta name="robots" content="index,follow,snippet,odp,archive,imageindex"/>
+    <meta name="googlebot" content="index,follow,snippet,odp,archive,imageindex"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Vi aspettano per festeggiare il loro Matrimonio!">
+    <meta name="author" content="Simone Tallevi-Diotallevi">
+
+    <title>Claudio Poli - Fotografia Macro e Naturalistica</title>
+
+    <link href="vendor/angular-material/angular-material.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template -->
+    <link href="css/app.css" rel="stylesheet" type="text/css">
+
+    <script src="vendor/angular/angular.js"></script>
+    <script src="vendor/angular/angular-aria.min.js"></script>
+    <script src="vendor/angular/angular-animate.min.js"></script>
+    <script src="vendor/angular/angular-ui-router.min.js"></script>
+    <script src="vendor/angular/angular-scroll.min.js"></script>
+
+    <script src="vendor/angular-material/angular-material.min.js"></script>
+
+    <script src="app.js"></script>
+
+    <script src="shared/constants.js"></script>
+    <script src="shared/services.js"></script>
+
+    <script src="partials/main.js"></script>
+    <script src="partials/home/home.js"></script>
+
+</head>
+
+<body id="page-top" ng-controller="MainCtrl as Main" ng-init="Main.init()">
+
+    <div class="{{Main.toolbarClass}}">
+        <md-toolbar id="top-toolbar" class="md-tall md-primary md-hue-3">
+            <span flex></span>
+            <div class="md-toolbar-tools" hide-xs hide-sm hide-md>
+                <md-menu>
+                    <md-button aria-label="Animali" ng-click="Main.openMenu($mdMenu)">Animali</md-button>
+                    <md-menu-content width="6">
+                        <md-menu-item ng-repeat="item in [1, 2, 3]">
+                            <md-button>Option {{item}}</md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+                <md-menu>
+                    <md-button aria-label="Funghi" ng-click="Main.openMenu($mdMenu)">Funghi</md-button>
+                    <md-menu-content width="6">
+                        <md-menu-item ng-repeat="item in [1, 2, 3]">
+                            <md-button>Option {{item}}</md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+                <md-menu>
+                    <md-button aria-label="Piante" ng-click="Main.openMenu($mdMenu)">Piante</md-button>
+                    <md-menu-content width="6">
+                        <md-menu-item ng-repeat="item in [1, 2, 3]">
+                            <md-button>Option {{item}}</md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+                <md-menu>
+                    <md-button aria-label="Paesaggi" ng-click="Main.openMenu($mdMenu)">Paesaggi</md-button>
+                    <md-menu-content width="6">
+                        <md-menu-item ng-repeat="item in [1, 2, 3]">
+                            <md-button>Option {{item}}</md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+                <span flex></span>
+            </div>
+            <div class="md-toolbar-tools" hide-lg>
+                <md-button class="filter-bottom" aria-label="Menu" ng-click="Main.openMenu($mdMenu)">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                </md-button>
+                <span flex></span>
+            </div>
+            <img class="toolbar-logo" src="img/claudio_poli.png"/>
+        </md-toolbar>
+        <div id="main-view" ui-view></div>
+    </div>
+</body>
+
+</html>

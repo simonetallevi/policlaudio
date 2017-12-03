@@ -1,0 +1,54 @@
+body {
+    position: relative;
+    width: 100%;
+    overflow:auto;
+    background-color:transparent;
+}
+
+md-menu-content,
+md-content{
+    background-color:#607D8B;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    background-color:#607D8B;
+}
+
+.md-toolbar-tools{
+    color:white;
+}
+
+#main-view{
+    width: 100%;
+}
+
+#top-toolbar {
+    background-color: #263238
+}
+
+.fixed-toolbar #main-view{
+    margin-top:128px;}
+.fixed-toolbar #top-toolbar{
+    position: fixed;
+    top:-64px;
+}
+
+.toolbar-logo{
+    position: absolute;
+    height: calc(50% - 6px);
+    margin-bottom: 3px;
+    right: 10px;
+    bottom: 0px;
+}
+
+.home-container{
+    width: 100%;
+    padding-top:0px;
+}
+
+.filter-bottom{
+    font-size: 30px;
+    min-width: 50px;
+}
