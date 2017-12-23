@@ -55,50 +55,26 @@
     <div class="{{Main.toolbarClass}}">
         <md-toolbar id="top-toolbar" class="md-tall md-primary md-hue-3">
             <span flex></span>
-            <div class="md-toolbar-tools" hide-xs hide-sm hide-md>
+            <div class="md-toolbar-tools">
+                <span ng-repeat="filter in Main.selectedFilters"> {{filter}} > </span>
                 <md-menu>
-                    <md-button aria-label="Animali" ng-click="Main.openMenu($mdMenu)">Animali</md-button>
+                    <md-button aria-label="" ng-click="Main.openMenu($mdMenu)">{{Main.selected}}</md-button>
                     <md-menu-content width="6">
-                        <md-menu-item ng-repeat="item in [1, 2, 3]">
-                            <md-button>Option {{item}}</md-button>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
-                <md-menu>
-                    <md-button aria-label="Funghi" ng-click="Main.openMenu($mdMenu)">Funghi</md-button>
-                    <md-menu-content width="6">
-                        <md-menu-item ng-repeat="item in [1, 2, 3]">
-                            <md-button>Option {{item}}</md-button>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
-                <md-menu>
-                    <md-button aria-label="Piante" ng-click="Main.openMenu($mdMenu)">Piante</md-button>
-                    <md-menu-content width="6">
-                        <md-menu-item ng-repeat="item in [1, 2, 3]">
-                            <md-button>Option {{item}}</md-button>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
-                <md-menu>
-                    <md-button aria-label="Paesaggi" ng-click="Main.openMenu($mdMenu)">Paesaggi</md-button>
-                    <md-menu-content width="6">
-                        <md-menu-item ng-repeat="item in [1, 2, 3]">
-                            <md-button>Option {{item}}</md-button>
+                        <md-menu-item ng-repeat="(key, values) in Main.items">
+                            <md-button ng-click="Main.onSelect(key, values)">{{key}}</md-button>
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>
                 <span flex></span>
             </div>
-            <div class="md-toolbar-tools" hide-lg>
-                <md-button class="filter-bottom" aria-label="Menu" ng-click="Main.openMenu($mdMenu)">
-                    <i class="fa fa-bars" aria-hidden="true"></i>
-                </md-button>
-                <span flex></span>
-            </div>
+            <img class="toolbar-logo" src="img/claudio_poli.png" hide-xs/>
+        </md-toolbar>
+
+        <div id="main-view" ui-view></div>
+
+        <md-toolbar id="bottom-toolbar" class="md-primary md-hue-3">
             <img class="toolbar-logo" src="img/claudio_poli.png"/>
         </md-toolbar>
-        <div id="main-view" ui-view></div>
     </div>
 </body>
 

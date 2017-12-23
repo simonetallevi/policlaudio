@@ -30,6 +30,24 @@
         self.toolbarClass = "";
         self.toggleMenuScrollTop = 0;
 
+        self.selectedFilters = [];
+        self.selected = "Categories";
+
+        self.items = {
+            "Animali":["Mammaria1", "ciccio", "pasticcio"],
+            "Funghi":["Mammaria2", "ciccio", "pasticcio"],
+            "Paesaggi":["Mammaria3", "ciccio", "pasticcio"]
+        };
+
+        self.onSelect = function(key, values){
+            self.items = {};
+            self.selectedFilters.push(self.selected);
+            self.selected = key;
+            values.forEach(function(val){
+                self.items[val] = []
+            });
+        }
+
         self.openMenu = function($mdMenu) {
             $mdMenu.open();
         };
