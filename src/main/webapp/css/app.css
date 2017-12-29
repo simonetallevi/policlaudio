@@ -1,8 +1,9 @@
 body {
-    position: relative;
-    width: 100%;
-    overflow:auto;
+    overflow: hidden;
     background-color:transparent;
+}
+
+#page-top{
 }
 
 md-menu-content,
@@ -21,7 +22,10 @@ html {
 }
 
 #main-view{
+    height: calc(100% - 130px);
+    position: relative;
     width: 100%;
+    overflow:auto;
 }
 
 #bottom-toolbar,
@@ -31,7 +35,7 @@ html {
 
 #bottom-toolbar{
     position: fixed;
-    bottom:0;
+    bottom: 0px;
 }
 
 .fixed-toolbar #main-view{
@@ -44,16 +48,19 @@ html {
 .toolbar-logo{
     position: absolute;
     margin-bottom: 3px;
+    height: calc(100% - 6px);
     right: 10px;
     bottom: 0px;
 }
 
-#bottom-toolbar .toolbar-logo{
-    height: calc(100% - 6px);
+.md-toolbar-tools{
+    height: 80px;
+    min-height: 80px;
 }
 
-#top-toolbar .toolbar-logo{
-    height: calc(50% - 6px);
+.md-toolbar-tools .md-button{
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .home-container{

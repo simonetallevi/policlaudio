@@ -3,16 +3,14 @@
 
     angular.module('policlaudio', ['ngAnimate', 'ui.router', 'ngMaterial', 'duScroll'])
 
-    .config(['$stateProvider', '$urlRouterProvider', '$mdThemingProvider',
-        function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
-
-            $mdThemingProvider.disableTheming();
+    .config(['$stateProvider', '$urlRouterProvider',
+        function($stateProvider, $urlRouterProvider) {
 
             // Routing
             $stateProvider
                 .state('home', {
                     url: "/",
-                    templateUrl: "partials/home/home.html",
+                    templateUrl: "partials/home/home.html?v1",
                     controller: 'HomeCtrl as Home'
                 });
 

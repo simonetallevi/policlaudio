@@ -32,6 +32,8 @@
     <!-- Custom styles for this template -->
     <link href="css/app.css" rel="stylesheet" type="text/css">
 
+    <script src="vendor/jquery/jquery.min.js"></script>
+
     <script src="vendor/angular/angular.js"></script>
     <script src="vendor/angular/angular-aria.min.js"></script>
     <script src="vendor/angular/angular-animate.min.js"></script>
@@ -39,6 +41,9 @@
     <script src="vendor/angular/angular-scroll.min.js"></script>
 
     <script src="vendor/angular-material/angular-material.min.js"></script>
+
+    <script src="vendor/waypoints/noframework.waypoints.min.js"></script>
+    <script src="vendor/waypoints/infinite.min.js"></script>
 
     <script src="app.js"></script>
 
@@ -50,32 +55,34 @@
 
 </head>
 
-<body id="page-top" ng-controller="MainCtrl as Main" ng-init="Main.init()">
+<body ng-controller="MainCtrl as Main" ng-init="Main.init()">
 
-    <div class="{{Main.toolbarClass}}">
-        <md-toolbar id="top-toolbar" class="md-tall md-primary md-hue-3">
-            <span flex></span>
-            <div class="md-toolbar-tools">
-                <span ng-repeat="filter in Main.selectedFilters"> {{filter}} > </span>
-                <md-menu>
-                    <md-button aria-label="" ng-click="Main.openMenu($mdMenu)">{{Main.selected}}</md-button>
-                    <md-menu-content width="6">
-                        <md-menu-item ng-repeat="(key, values) in Main.items">
-                            <md-button ng-click="Main.onSelect(key, values)">{{key}}</md-button>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
-                <span flex></span>
+    <md-toolbar id="top-toolbar" class="md-primary md-hue-2">
+        <div class="md-toolbar-tools">
+            <div ng-repeat="filter in Main.selectedFilters">
+                <md-button ng-click="null"> {{filter}} </md-button> >
             </div>
-            <img class="toolbar-logo" src="img/claudio_poli.png" hide-xs/>
-        </md-toolbar>
+            <md-input-container>
+                <label>State</label>
+                <md-select ng-model="Main.selected">
+                    <md-option><em>None</em></md-option>
+                    <md-option ng-repeat="(key, values) in Main.items" ng-value="key" ng-disabled="$index === 1">
+                        {{key}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <span flex></span>
+            <div class="md-toolbar-tools" style="position: relative">
+                <img class="toolbar-logo" src="img/claudio_poli.png" hide-xs/>
+            </div>
+        </div>
+    </md-toolbar>
 
-        <div id="main-view" ui-view></div>
+    <div id="main-view" ui-view></div>
 
-        <md-toolbar id="bottom-toolbar" class="md-primary md-hue-3">
-            <img class="toolbar-logo" src="img/claudio_poli.png"/>
-        </md-toolbar>
-    </div>
+    <md-toolbar id="bottom-toolbar" class="md-primary md-hue-2">
+        <img class="toolbar-logo" src="img/claudio_poli.png"/>
+    </md-toolbar>
 </body>
 
 </html>

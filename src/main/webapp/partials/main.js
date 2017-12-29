@@ -6,7 +6,7 @@
         .controller('MainCtrl', MainCtrl);
 
     MainService.$inject = ['$rootScope', 'SERVICE', '$http', '$q', 'Utils'];
-    MainCtrl.$inject = ['$log', '$rootScope', '$document', '$mdSidenav', '$mdMedia', '$mdMenu', '$scope', 'MainService'];
+    MainCtrl.$inject = ['$log', '$rootScope', '$document', '$element', '$mdSidenav', '$mdMedia', '$mdMenu', '$scope', 'MainService'];
 
     function MainService($rootScope, SERVICE, $http, $q, Utils) {
         var self = this;
@@ -23,7 +23,7 @@
         }
     }
 
-    function MainCtrl($log, $rootScope, $document, $mdSidenav, $mdMedia, $mdMenu, $scope, MainService) {
+    function MainCtrl($log, $rootScope, $document, $element, $mdSidenav, $mdMedia, $mdMenu, $scope, MainService) {
         var self = this;
 
         self.scrollActive = false;
@@ -51,18 +51,6 @@
         self.openMenu = function($mdMenu) {
             $mdMenu.open();
         };
-
-        $document.on('scroll', function() {
-            if($document.scrollTop() >= 64 && !self.scrollActive){
-                self.scrollActive = true;
-                self.toolbarClass = "fixed-toolbar"
-                $scope.$apply()
-            }else if($document.scrollTop() < 64 && self.scrollActive){
-                self.scrollActive = false;
-                self.toolbarClass = ""
-                $scope.$apply()
-            }
-        });
 
         self.init = function() {
 
