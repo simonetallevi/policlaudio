@@ -3,8 +3,13 @@
 
     angular.module('policlaudio', ['ngAnimate', 'ui.router', 'ngMaterial', 'duScroll'])
 
-    .config(['$stateProvider', '$urlRouterProvider',
-        function($stateProvider, $urlRouterProvider) {
+    .config(['$stateProvider', '$urlRouterProvider', '$mdThemingProvider',
+        function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
+
+              //themes are still defined in config, but the css is not generated
+            $mdThemingProvider.theme('default')
+                .primaryPalette('blue-grey')
+                .accentPalette('yellow')
 
             // Routing
             $stateProvider

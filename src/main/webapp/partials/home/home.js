@@ -33,7 +33,7 @@
 
         self.colorTiles = [];
 
-        self.loadTiles = function() {
+        self.loadMoreTiles = function() {
             for (var i = 0; i < 30; i++) {
                 var span = randomSpan();
                 self.colorTiles.push({
@@ -44,37 +44,31 @@
             }
         };
 
-        self.more = function(){
-            $log.info("Load more");
-            self.loadTiles();
-            $log.info("Loaded");
-            $timeout(function(){
-                Waypoint.refreshAll();
-            }, 250);
-            $scope.$apply();
-        }
-
-        self.createWayPoint = function(){
-            return new Waypoint({
-                    context: document.getElementById('main-view'),
-                    element: document.getElementById('basic-waypoint'),
-                    enabled: false,
-                    offset: 'bottom-in-view',
-                    handler: function(dir) {
-                         if(dir == 'down'){
-                           self.more();
-                         }
-                         $log.info(dir);
-                     }
-                   });
-        }
+//        $scope.$on('LOAD-MORE', function(){
+//            self.loadTiles();
+//            $timeout(function(){
+//                Waypoint.refreshAll();
+//            }, 250);
+//            $scope.$apply();
+//        });
+//        self.createWayPoint = function(){
+//            return new Waypoint({
+//                    context: document.getElementById('main-view'),
+//                    element: document.getElementById('basic-waypoint'),
+//                    enabled: false,
+//                    offset: 'bottom-in-view',
+//                    handler: function(dir) {
+//                         if(dir == 'down'){
+//                           $log.info("Load more");
+//                           $scope.$emit("LOAD-MORE")
+//                         }
+//                         $log.info(dir);
+//                     }
+//                   });
+//        }
 
         self.init = function() {
-            self.loadTiles();
-            self.waypoint = self.createWayPoint();
-            $timeout(function(){
-                self.waypoint.enable();
-            }, 250);
+            self.loadMoreTiles();
         };
     };
 })();

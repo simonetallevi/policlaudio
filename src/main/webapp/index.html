@@ -62,15 +62,15 @@
             <div ng-repeat="filter in Main.selectedFilters">
                 <md-button ng-click="null"> {{filter}} </md-button> >
             </div>
-            <md-input-container>
-                <label>State</label>
-                <md-select ng-model="Main.selected">
-                    <md-option><em>None</em></md-option>
-                    <md-option ng-repeat="(key, values) in Main.items" ng-value="key" ng-disabled="$index === 1">
-                        {{key}}
-                    </md-option>
-                </md-select>
-            </md-input-container>
+            <span ng-repeat="filter in Main.selectedFilters"> {{filter}} > </span>
+            <md-menu>
+                <md-button aria-label="" ng-click="Main.openMenu($mdMenu)">{{Main.selected}}</md-button>
+                <md-menu-content width="6">
+                    <md-menu-item ng-repeat="(key, values) in Main.items">
+                        <md-button ng-click="Main.onSelect(key, values)">{{key}}</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
             <span flex></span>
             <div class="md-toolbar-tools" style="position: relative">
                 <img class="toolbar-logo" src="img/claudio_poli.png" hide-xs/>
