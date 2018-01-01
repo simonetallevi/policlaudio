@@ -12,7 +12,8 @@
         .factory("Utils", Utils);
 
     Notification.$inject = ['$rootScope'];
-    Utils.$inject = ['SERVICE', '$http'];
+    Utils.$inject = ['SERVICE'];
+    FilterService.$inject = ['SERVICE', 'Utils'];
 
     function Notification($rootScope) {
         return {
@@ -37,7 +38,7 @@
         }
     }
 
-    function Utils(SERVICE, $http) {
+    function Utils(SERVICE) {
         return {
             reqConfig: function(method, url, action) {
                 var config = {
@@ -53,6 +54,12 @@
                     return config;
                 }
             }
+        }
+    }
+
+    function FilterService(SERVICE, Utils){
+        return {
+            loadFilters: function(){}
         }
     }
 

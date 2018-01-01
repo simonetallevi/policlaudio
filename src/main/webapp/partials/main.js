@@ -6,7 +6,9 @@
         .controller('MainCtrl', MainCtrl);
 
     MainService.$inject = ['$rootScope', 'SERVICE', '$http', '$q', 'Utils'];
-    MainCtrl.$inject = ['$log', '$rootScope', '$document', '$element', '$mdSidenav', '$mdMedia', '$mdMenu', '$scope', 'MainService'];
+    MainCtrl.$inject = ['$log', '$rootScope', '$document', '$element',
+                        '$mdSidenav', '$mdMedia', '$mdMenu', '$scope', 'MainService',
+                        'CONSTANTS'];
 
     function MainService($rootScope, SERVICE, $http, $q, Utils) {
         var self = this;
@@ -23,7 +25,8 @@
         }
     }
 
-    function MainCtrl($log, $rootScope, $document, $element, $mdSidenav, $mdMedia, $mdMenu, $scope, MainService) {
+    function MainCtrl($log, $rootScope, $document, $element, $mdSidenav,
+                        $mdMedia, $mdMenu, $scope, MainService, CONSTANTS) {
         var self = this;
 
         self.scrollActive = false;
@@ -31,36 +34,66 @@
         self.toggleMenuScrollTop = 0;
 
         self.selectedFilters = [];
-        self.selected = "Categories";
+        self.sliceIndex = [];
+        self.selected = "root";
 
-        self.items = {
-            "Animali":["Mammaria1", "ciccio", "pasticcio"],
-            "Funghi":["Mammaria2", "ciccio", "pasticcio"],
-            "Paesaggi":["Mammaria3", "ciccio", "pasticcio"]
-        };
+        self.items = CONSTANTS.FILTERS["root"];
 
-        self.onSelect = function(key, values){
-            self.items = {};
-            self.selectedFilters.push(self.selected);
-            self.selected = key;
-            values.forEach(function(val){
-                self.items[val] = []
-            });
+        self.onSelect = function(item){
+            self.items = CONSTANTS.FILTERS[item];
+            if(self.selected){
+                self.selectedFilters.push(self.selected);
+            }
+            self.selected = item;
+            self.sliceIndex = self.calcSliceIndex();
+        }
+
+        self.unselectFilter = function(index){
+            if(index > 0 && self.sliceIndex[0] + index > 0){
+                var item = self.selectedFilters[self.sliceIndex[0] + index];
+                var newIndexOfSelectedItem = self.sliceIndex[0] + index - 1;
+                if(newIndexOfSelectedItem >= 0){
+                    self.selected = self.selectedFilters[newIndexOfSelectedItem];
+                    self.selectedFilters = self.selectedFilters.slice(0, newIndexOfSelectedItem);
+                }else{
+                    self.selected = null;
+                    self.selectedFilters = [];
+                }
+                self.onSelect(item);
+            } else{
+                self.selected = null;
+                self.selectedFilters = [];
+                self.onSelect('root');
+            }
+        }
+
+        self.calcSliceIndex = function(){
+            var totalCount = self.selectedFilters.length;
+
+            if(totalCount == 0){
+                return [0,0];
+            }
+            if($mdMedia('xs')){
+                return [totalCount - 1, totalCount];
+            }
+            if($mdMedia('sm') || $mdMedia('md')){
+                return [totalCount - 2, totalCount];
+            }
+            return [totalCount - 3, totalCount];
         }
 
         self.openMenu = function($mdMenu) {
-            $mdMenu.open();
+            if(self.hasMoreItems()){
+                $mdMenu.open();
+            }
         };
+
+        self.hasMoreItems = function(){
+            return self.items.length > 0;
+        }
 
         self.init = function() {
 
         };
-
-        self.closeMenu = function() {
-            $mdSidenav('left').close()
-                .then(function() {
-                    $log.debug("close LEFT is done");
-                });
-        }
     }
 })();

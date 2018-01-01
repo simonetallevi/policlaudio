@@ -58,22 +58,31 @@
 <body ng-controller="MainCtrl as Main" ng-init="Main.init()">
 
     <md-toolbar id="top-toolbar" class="md-primary md-hue-2">
-        <div class="md-toolbar-tools">
-            <div ng-repeat="filter in Main.selectedFilters">
-                <md-button ng-click="null"> {{filter}} </md-button> >
+        <div class="md-toolbar-tools" layout="row">
+
+            <div ng-if="Main.sliceIndex[0] > 0" layout="row">
+                <md-button class="md-accent" ng-click="Main.unselectFilter(-1)"> ... </md-button>
+                <div style="padding-top:4px"> > </div>
             </div>
-            <span ng-repeat="filter in Main.selectedFilters"> {{filter}} > </span>
+            <div ng-repeat="filter in Main.selectedFilters | slice:Main.sliceIndex[0]:Main.sliceIndex[1]" layout="row">
+                <md-button class="md-accent" ng-click="Main.unselectFilter($index)"> {{filter}} </md-button>
+                <div style="padding-top:4px"> > </div>
+            </div>
+
             <md-menu>
-                <md-button aria-label="" ng-click="Main.openMenu($mdMenu)">{{Main.selected}}</md-button>
-                <md-menu-content width="6">
-                    <md-menu-item ng-repeat="(key, values) in Main.items">
-                        <md-button ng-click="Main.onSelect(key, values)">{{key}}</md-button>
+                <md-button aria-label="" ng-click="Main.openMenu($mdMenu)" class="md-accent">
+                    {{Main.selected}}
+                    <i class="fa fa-caret-down" aria-hidden="true" ng-if="Main.hasMoreItems()"></i>
+                </md-button>
+                <md-menu-content width="auto">
+                    <md-menu-item ng-repeat="item in Main.items">
+                        <md-button ng-click="Main.onSelect(item)">{{item}}</md-button>
                     </md-menu-item>
                 </md-menu-content>
             </md-menu>
             <span flex></span>
             <div class="md-toolbar-tools" style="position: relative">
-                <img class="toolbar-logo" src="img/claudio_poli.png" hide-xs/>
+                <img class="toolbar-logo" src="img/claudio_poli.png" hide-md hide-sm hide-xs/>
             </div>
         </div>
     </md-toolbar>
@@ -81,7 +90,7 @@
     <div id="main-view" ui-view></div>
 
     <md-toolbar id="bottom-toolbar" class="md-primary md-hue-2">
-        <img class="toolbar-logo" src="img/claudio_poli.png"/>
+        <img class="toolbar-logo" src="img/claudio_poli.png" hide-lg hide-xl />
     </md-toolbar>
 </body>
 

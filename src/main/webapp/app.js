@@ -31,6 +31,12 @@
         }
     }])
 
+    .filter('slice', function() {
+      return function(arr, start, end) {
+        return (arr || []).slice(start, end);
+      };
+    })
+
     .run(['$rootScope', '$log', '$timeout',
         function($rootScope, $log, $timeout) {
             $rootScope.initialized = true;
