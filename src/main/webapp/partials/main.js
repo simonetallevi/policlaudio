@@ -5,12 +5,12 @@
         .factory('MainService', MainService)
         .controller('MainCtrl', MainCtrl);
 
-    MainService.$inject = ['$rootScope', 'SERVICE', '$http', '$q', 'Utils'];
+    MainService.$inject = ['$rootScope', 'SERVICE', '$http', '$q', '$state', 'Utils'];
     MainCtrl.$inject = ['$log', '$rootScope', '$document', '$element',
                         '$mdSidenav', '$mdMedia', '$mdMenu', '$scope', 'MainService',
                         'CONSTANTS'];
 
-    function MainService($rootScope, SERVICE, $http, $q, Utils) {
+    function MainService($rootScope, SERVICE, $http, $q, $state, Utils) {
         var self = this;
 
         var _goTo = function(state, params) {
@@ -35,12 +35,13 @@
 
         self.selectedFilters = [];
         self.sliceIndex = [];
-        self.selected = "root";
-
-        self.items = CONSTANTS.FILTERS["root"];
+        self.selected = "categories";
+        self.items = CONSTANTS.FILTERS[self.selected];
+        self.hasMoreItems = self.items.length > 0;
 
         self.onSelect = function(item){
             self.items = CONSTANTS.FILTERS[item];
+            self.hasMoreItems = self.items.length > 0;
             if(self.selected){
                 self.selectedFilters.push(self.selected);
             }
@@ -49,9 +50,16 @@
         }
 
         self.unselectFilter = function(index){
-            if(index > 0 && self.sliceIndex[0] + index > 0){
-                var item = self.selectedFilters[self.sliceIndex[0] + index];
-                var newIndexOfSelectedItem = self.sliceIndex[0] + index - 1;
+            if(index >= 0 && self.sliceIndex[0] + index >= 0){
+                var item;
+                var newIndexOfSelectedItem;
+                if(self.sliceIndex[0] <= 1){
+                    item = self.selectedFilters[index];
+                    newIndexOfSelectedItem = index - 1;
+                }else{
+                    item = self.selectedFilters[self.sliceIndex[0] + index];
+                    newIndexOfSelectedItem = self.sliceIndex[0] + index - 1;
+                }
                 if(newIndexOfSelectedItem >= 0){
                     self.selected = self.selectedFilters[newIndexOfSelectedItem];
                     self.selectedFilters = self.selectedFilters.slice(0, newIndexOfSelectedItem);
@@ -63,34 +71,33 @@
             } else{
                 self.selected = null;
                 self.selectedFilters = [];
-                self.onSelect('root');
+                self.onSelect('categories');
             }
         }
 
         self.calcSliceIndex = function(){
             var totalCount = self.selectedFilters.length;
-
-            if(totalCount == 0){
+            if(totalCount === 0){
                 return [0,0];
             }
             if($mdMedia('xs')){
-                return [totalCount - 1, totalCount];
+                return [(totalCount - 1 < 0) ? 0 : (totalCount - 1), totalCount];
             }
             if($mdMedia('sm') || $mdMedia('md')){
-                return [totalCount - 2, totalCount];
+                return [(totalCount - 2 < 0) ? 0 : (totalCount - 2), totalCount];
             }
-            return [totalCount - 3, totalCount];
+            return [(totalCount - 3 < 0) ? 0 : (totalCount - 3), totalCount];
         }
 
-        self.openMenu = function($mdMenu) {
-            if(self.hasMoreItems()){
+        self.openSelectMenu = function($mdMenu) {
+            if(self.hasMoreItems){
                 $mdMenu.open();
             }
         };
 
-        self.hasMoreItems = function(){
-            return self.items.length > 0;
-        }
+        self.openUnSelectMenu = function($mdMenu) {
+            $mdMenu.open();
+        };
 
         self.init = function() {
 

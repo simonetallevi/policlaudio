@@ -6,7 +6,7 @@
         .controller('HomeCtrl', HomeCtrl);
 
     HomeService.$inject = ['$rootScope', 'SERVICE', '$http', '$q', 'Utils'];
-    HomeCtrl.$inject = ['$log', '$rootScope', '$scope', 'HomeService', '$timeout', '$q', 'CONSTANTS'];
+    HomeCtrl.$inject = ['$log', '$rootScope', '$scope', 'HomeService', 'MainService', '$timeout', '$q', 'CONSTANTS'];
 
     function HomeService($rootScope, SERVICE, $http, $q, Utils) {
         var self = this;
@@ -15,8 +15,9 @@
         }
     }
 
-    function HomeCtrl($log, $rootScope, $scope, HomeService, $timeout, $q, CONSTANTS) {
+    function HomeCtrl($log, $rootScope, $scope, HomeService, MainService, $timeout, $q, CONSTANTS) {
         var self = this;
+        self.count = 1;
 
         var randomColor = function() {
             return CONSTANTS.COLORS[Math.floor(Math.random() * CONSTANTS.COLORS.length)];
@@ -31,41 +32,31 @@
             }
         }
 
-        self.colorTiles = [];
+        var nextImg = function(index) {
+            var length = self.count*index;
+            if(CONSTANTS.PHOTOS.length >= length)
+                self.count = 1;
+            return CONSTANTS.PHOTOS[length];
+        }
+
+        self.tiles = [];
 
         self.loadMoreTiles = function() {
             for (var i = 0; i < 30; i++) {
                 var span = randomSpan();
-                self.colorTiles.push({
+                self.tiles.push({
                     color: randomColor(),
                     colspan: span,
-                    rowspan: span
+                    rowspan: span,
+                    img: nextImg(i)
                 });
             }
+            self.count++;
         };
 
-//        $scope.$on('LOAD-MORE', function(){
-//            self.loadTiles();
-//            $timeout(function(){
-//                Waypoint.refreshAll();
-//            }, 250);
-//            $scope.$apply();
-//        });
-//        self.createWayPoint = function(){
-//            return new Waypoint({
-//                    context: document.getElementById('main-view'),
-//                    element: document.getElementById('basic-waypoint'),
-//                    enabled: false,
-//                    offset: 'bottom-in-view',
-//                    handler: function(dir) {
-//                         if(dir == 'down'){
-//                           $log.info("Load more");
-//                           $scope.$emit("LOAD-MORE")
-//                         }
-//                         $log.info(dir);
-//                     }
-//                   });
-//        }
+        self.selectImg = function(imgId){
+            MainService.goTo("slider", {img:imgId});
+        }
 
         self.init = function() {
             self.loadMoreTiles();

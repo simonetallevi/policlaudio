@@ -52,6 +52,7 @@
 
     <script src="partials/main.js"></script>
     <script src="partials/home/home.js"></script>
+    <script src="partials/slider/slider.js"></script>
 
 </head>
 
@@ -60,21 +61,33 @@
     <md-toolbar id="top-toolbar" class="md-primary md-hue-2">
         <div class="md-toolbar-tools" layout="row">
 
-            <div ng-if="Main.sliceIndex[0] > 0" layout="row">
-                <md-button class="md-accent" ng-click="Main.unselectFilter(-1)"> ... </md-button>
+            <div ng-if="Main.sliceIndex[0] > 1" layout="row">
+                <md-menu>
+                    <md-button aria-label="" ng-click="Main.openUnSelectMenu($mdMenu)" class="md-accent" style="position:relative">
+                        ... <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        <div class="menu-counter">
+                            <span>{{Main.sliceIndex[0]}}</span>
+                        </div>
+                    </md-button>
+                    <md-menu-content width="4">
+                        <md-menu-item ng-repeat="filter in Main.selectedFilters | slice:0:Main.sliceIndex[0]">
+                            <md-button ng-click="Main.unselectFilter($index)">{{filter}}</md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
                 <div style="padding-top:4px"> > </div>
             </div>
-            <div ng-repeat="filter in Main.selectedFilters | slice:Main.sliceIndex[0]:Main.sliceIndex[1]" layout="row">
+            <div ng-repeat="filter in Main.selectedFilters | slice:(Main.sliceIndex[0] > 1 ? Main.sliceIndex[0] : 0):Main.sliceIndex[1]" layout="row">
                 <md-button class="md-accent" ng-click="Main.unselectFilter($index)"> {{filter}} </md-button>
                 <div style="padding-top:4px"> > </div>
             </div>
 
             <md-menu>
-                <md-button aria-label="" ng-click="Main.openMenu($mdMenu)" class="md-accent">
+                <md-button aria-label="" ng-click="Main.openSelectMenu($mdMenu)" class="md-accent">
                     {{Main.selected}}
-                    <i class="fa fa-caret-down" aria-hidden="true" ng-if="Main.hasMoreItems()"></i>
+                    <i class="fa fa-caret-down" aria-hidden="true" ng-if="Main.hasMoreItems"></i>
                 </md-button>
-                <md-menu-content width="auto">
+                <md-menu-content width="4">
                     <md-menu-item ng-repeat="item in Main.items">
                         <md-button ng-click="Main.onSelect(item)">{{item}}</md-button>
                     </md-menu-item>
