@@ -17,11 +17,6 @@
                     url: "/",
                     templateUrl: "partials/home/home.html?v1",
                     controller: 'HomeCtrl as Home'
-                })
-                .state('slider', {
-                    url: "/slider",
-                    templateUrl: "partials/slider/slider.html?v1",
-                    controller: 'SliderCtrl as Slider'
                 });
 
             $urlRouterProvider.otherwise("/");

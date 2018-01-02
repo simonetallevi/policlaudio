@@ -6,7 +6,7 @@
         .controller('HomeCtrl', HomeCtrl);
 
     HomeService.$inject = ['$rootScope', 'SERVICE', '$http', '$q', 'Utils'];
-    HomeCtrl.$inject = ['$log', '$rootScope', '$scope', 'HomeService', 'MainService', '$timeout', '$q', 'CONSTANTS'];
+    HomeCtrl.$inject = ['$log', '$rootScope', '$scope', 'HomeService', 'MainService', '$timeout', '$mdDialog', '$q', 'CONSTANTS'];
 
     function HomeService($rootScope, SERVICE, $http, $q, Utils) {
         var self = this;
@@ -15,7 +15,7 @@
         }
     }
 
-    function HomeCtrl($log, $rootScope, $scope, HomeService, MainService, $timeout, $q, CONSTANTS) {
+    function HomeCtrl($log, $rootScope, $scope, HomeService, MainService, $timeout, $mdDialog, $q, CONSTANTS) {
         var self = this;
         self.count = 1;
 
@@ -54,8 +54,27 @@
             self.count++;
         };
 
-        self.selectImg = function(imgId){
-            MainService.goTo("slider", {img:imgId});
+        self.selectImg = function(imgId, ev){
+            $mdDialog.show({
+              controllerAs: "DialogSlider",
+              controller: "DialogSliderCtrl",
+              templateUrl: 'partials/home/dialog.slider.html',
+              parent: angular.element(document.body),
+              targetEvent: ev,
+              clickOutsideToClose:true,
+              fullscreen: true,
+              escapeToClose: true,
+              locals: {
+                  inputs: {
+                    img : imgId
+                  }
+               }
+            })
+            .then(function(answer) {
+               $log.info("OK");
+            }, function() {
+               $log.error("ERROR");
+            });
         }
 
         self.init = function() {
