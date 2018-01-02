@@ -57,7 +57,13 @@
         self.selectImg = function(imgId, ev){
             $mdDialog.show({
               controllerAs: "DialogSlider",
-              controller: "DialogSliderCtrl",
+              controller: function(inputs){
+                var self = this;
+                self.src="http://policlaudio.com/photos/"+inputs.img
+                self.init = function() {
+
+                };
+              },
               templateUrl: 'partials/home/dialog.slider.html',
               parent: angular.element(document.body),
               targetEvent: ev,
@@ -70,11 +76,10 @@
                   }
                }
             })
-            .then(function(answer) {
-               $log.info("OK");
-            }, function() {
-               $log.error("ERROR");
-            });
+            .then(
+                function(answer) {},
+                function() {}
+            );
         }
 
         self.init = function() {
