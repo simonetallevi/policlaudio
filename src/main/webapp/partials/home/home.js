@@ -54,14 +54,34 @@
             self.count++;
         };
 
-        self.selectImg = function(imgId, ev){
+        $scope.$on("LOAD-MORE", function(){
+            var previousIndex = self.tiles.length;
+            self.loadMoreTiles();
+            self.selectImg(previousIndex);
+        });
+
+        self.selectImg = function(index, ev){
             $mdDialog.show({
               controllerAs: "DialogSlider",
               controller: function(inputs){
-                var self = this;
-                self.src="http://policlaudio.com/photos/"+inputs.img
-                self.init = function() {
-
+                var dialog = this;
+                dialog.src="http://policlaudio.com/photos/"+inputs.images[inputs.currentIndex].img;
+                dialog.next = function(){
+                    if(inputs.currentIndex + 1 < inputs.images.length){
+                        inputs.currentIndex += 1;
+                        dialog.src="http://policlaudio.com/photos/"+inputs.images[inputs.currentIndex].img;
+                        return;
+                    }
+                    $scope.$emit("LOAD-MORE");
+                }
+                dialog.back = function(){
+                    if(inputs.currentIndex - 1 < 0){
+                        return
+                    }
+                    inputs.currentIndex -= 1;
+                    dialog.src="http://policlaudio.com/photos/"+inputs.images[inputs.currentIndex].img;
+                }
+                dialog.init = function() {
                 };
               },
               templateUrl: 'partials/home/dialog.slider.html',
@@ -72,7 +92,8 @@
               escapeToClose: true,
               locals: {
                   inputs: {
-                    img : imgId
+                    currentIndex: index,
+                    images: self.tiles
                   }
                }
             })

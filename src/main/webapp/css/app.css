@@ -3,6 +3,10 @@ body {
     background-color:transparent;
 }
 
+*:focus {
+    outline: none;
+}
+
 #page-top{
 }
 
@@ -98,4 +102,58 @@ html {
 .dialog-container{
     position: relative;
     max-height: 100%;
+}
+.dialog-container img{
+    width: 100%;
+}
+
+.dialog-container .next-button{
+    right: 0;
+    background: rgba(0,0,0,0.3);
+    background: -moz-linear-gradient(left, rgba(0,0,0,0.0) 1%, rgba(0,0,0,0.3) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(1%, rgba(0,0,0,0)), color-stop(100%, rgba(0,0,0,0.3)));
+    background: -webkit-linear-gradient(left, rgba(0,0,0,0) 1%, rgba(0,0,0,0.3) 100%);
+    background: -o-linear-gradient(left, rgba(0,0,0,0) 1%, rgba(0,0,0,0.3) 100%);
+    background: -ms-linear-gradient(left, rgba(0,0,0,0) 1%, rgba(0,0,0,0.3) 100%);
+    background: linear-gradient(to right, rgba(0,0,0,0) 1%, rgba(0,0,0,0.3) 100%)
+}
+.dialog-container .back-button{
+    left: 0;
+    background: rgba(0,0,0,0.3);
+        background: -moz-linear-gradient(right, rgba(0,0,0,0.0) 1%, rgba(0,0,0,0.3) 100%);
+        background: -webkit-gradient(right top, right top, color-stop(1%, rgba(0,0,0,0)), color-stop(100%, rgba(0,0,0,0.3)));
+        background: -webkit-linear-gradient(right, rgba(0,0,0,0) 1%, rgba(0,0,0,0.3) 100%);
+        background: -o-linear-gradient(right, rgba(0,0,0,0) 1%, rgba(0,0,0,0.3) 100%);
+        background: -ms-linear-gradient(right, rgba(0,0,0,0) 1%, rgba(0,0,0,0.3) 100%);
+        background: linear-gradient(to left, rgba(0,0,0,0) 1%, rgba(0,0,0,0.3) 100%)
+}
+
+.dialog-container .next-button,
+.dialog-container .back-button{
+    position: absolute;
+    height: 100%;
+    width: 20%;
+    min-width: 50px;
+    color: whitesmoke;
+}
+
+.dialog-container .next-button .fa,
+.dialog-container .back-button .fa {
+    position: absolute;
+    top: 50%;
+}
+
+.dialog-container .next-button .fa{
+    right: 10px;
+}
+.dialog-container .back-button .fa{
+    left: 10px;
+}
+
+@media (max-width: 959px){
+    md-dialog.md-dialog-fullscreen{
+        min-height: auto;
+        min-width: auto;
+        border-radius: 0;
+    }
 }
