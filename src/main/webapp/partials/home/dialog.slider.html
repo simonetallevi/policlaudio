@@ -6,8 +6,9 @@
     <md-button ng-click="DialogSlider.close()" class="sliderCommands close-button" aria-label="Close">
         <i class="fa fa-times-circle" aria-hidden="true"></i>
     </md-button>
-    <md-button ng-click="DialogSlider.play()" class="sliderCommands play-button" aria-label="Play">
-        <i class="fa fa-play-circle" aria-hidden="true"></i>
+    <md-button ng-click="DialogSlider.togglePlay()" class="sliderCommands play-button" aria-label="Play">
+        <i ng-if="!DialogSlider.play" class="fa fa-play-circle" aria-hidden="true"></i>
+        <i ng-if="DialogSlider.play" class="fa fa-stop-circle" aria-hidden="true"></i>
     </md-button>
     <md-button ng-click="DialogSlider.back()" class="sliderCommands back-button" aria-label="Back">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>

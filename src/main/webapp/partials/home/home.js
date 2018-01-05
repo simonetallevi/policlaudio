@@ -65,8 +65,10 @@
               controllerAs: "DialogSlider",
               controller: function(inputs){
                 var dialog = this;
-                dialog.timeout = null;
+                dialog.timeoutCommands = null;
+                dialog.timeoutPlay = null;
                 dialog.hide = false;
+                dialog.play = false;
                 dialog.src="http://policlaudio.com/photos/"+inputs.images[inputs.currentIndex].img;
                 dialog.next = function(){
                     if(inputs.currentIndex + 1 < inputs.images.length){
@@ -88,20 +90,33 @@
                 dialog.displayButtons = function(){
                     dialog.hide = false;
                     if(dialog.timeout != null){
-                        $timeout.cancel(dialog.timeout);
+                        $timeout.cancel(dialog.timeoutCommands);
                     }
-                    dialog.timeout = dialog.hideButtons();
+                    dialog.timeoutCommands = dialog.hideButtons();
                 }
 
                 dialog.hideButtons = function(){
                     return $timeout(function(){
                         dialog.hide = true;
-                        $log.info("hide")
                     }, 5000);
                 }
 
-                dialog.play = function(){
+                dialog.playNext = function(){
+                    if(dialog.play){
+                        dialog.timeoutPlay = $timeout(function(){
+                           dialog.next();
+                           dialog.timeoutPlay = dialog.playNext();
+                       }, 3000);
+                   }
+                }
 
+                dialog.togglePlay = function(){
+                    dialog.play = !dialog.play;
+                    if(dialog.play){
+                        dialog.playNext();
+                    }else{
+                        $timeout.cancel(dialog.timeoutPlay);
+                    }
                 }
 
                 dialog.close = function(){
@@ -117,7 +132,7 @@
                 }
 
                 dialog.init = function() {
-                    dialog.timeout = dialog.hideButtons();
+                    dialog.timeoutCommands = dialog.hideButtons();
                 };
               },
               templateUrl: 'partials/home/dialog.slider.html',
