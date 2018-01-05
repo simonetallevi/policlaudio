@@ -54,13 +54,13 @@
             self.count++;
         };
 
-        $scope.$on("LOAD-MORE", function(){
+        $scope.$on("LOAD-MORE", function(event, status){
             var previousIndex = self.tiles.length;
             self.loadMoreTiles();
-            self.selectImg(previousIndex);
+            self.selectImg(previousIndex, status);
         });
 
-        self.selectImg = function(index, ev){
+        self.selectImg = function(index, status, ev){
             $mdDialog.show({
               controllerAs: "DialogSlider",
               controller: function(inputs){
@@ -68,7 +68,8 @@
                 dialog.timeoutCommands = null;
                 dialog.timeoutPlay = null;
                 dialog.hide = false;
-                dialog.play = false;
+                dialog.play = (inputs.status && inputs.status.play) ? true : false;
+
                 dialog.src="http://policlaudio.com/photos/"+inputs.images[inputs.currentIndex].img;
                 dialog.next = function(){
                     if(inputs.currentIndex + 1 < inputs.images.length){
@@ -76,7 +77,12 @@
                         dialog.src="http://policlaudio.com/photos/"+inputs.images[inputs.currentIndex].img;
                         return;
                     }
-                    $scope.$emit("LOAD-MORE");
+
+                    var status = {
+                       play: dialog.play
+                    };
+
+                    $scope.$emit("LOAD-MORE", status);
                 }
 
                 dialog.back = function(){
@@ -120,6 +126,9 @@
                 }
 
                 dialog.close = function(){
+                    $timeout.cancel(dialog.timeoutPlay);
+                    dialog.hide = false;
+                    dialog.play = false;
                     $mdDialog.hide();
                 }
 
@@ -133,6 +142,9 @@
 
                 dialog.init = function() {
                     dialog.timeoutCommands = dialog.hideButtons();
+                    if(dialog.play){
+                        dialog.playNext();
+                    }
                 };
               },
               templateUrl: 'partials/home/dialog.slider.html',
@@ -144,7 +156,8 @@
               locals: {
                   inputs: {
                     currentIndex: index,
-                    images: self.tiles
+                    images: self.tiles,
+                    status: status
                   }
                }
             })
