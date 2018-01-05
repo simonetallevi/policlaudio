@@ -65,6 +65,8 @@
               controllerAs: "DialogSlider",
               controller: function(inputs){
                 var dialog = this;
+                dialog.timeout = null;
+                dialog.hide = false;
                 dialog.src="http://policlaudio.com/photos/"+inputs.images[inputs.currentIndex].img;
                 dialog.next = function(){
                     if(inputs.currentIndex + 1 < inputs.images.length){
@@ -74,6 +76,7 @@
                     }
                     $scope.$emit("LOAD-MORE");
                 }
+
                 dialog.back = function(){
                     if(inputs.currentIndex - 1 < 0){
                         return
@@ -81,13 +84,46 @@
                     inputs.currentIndex -= 1;
                     dialog.src="http://policlaudio.com/photos/"+inputs.images[inputs.currentIndex].img;
                 }
+
+                dialog.displayButtons = function(){
+                    dialog.hide = false;
+                    if(dialog.timeout != null){
+                        $timeout.cancel(dialog.timeout);
+                    }
+                    dialog.timeout = dialog.hideButtons();
+                }
+
+                dialog.hideButtons = function(){
+                    return $timeout(function(){
+                        dialog.hide = true;
+                        $log.info("hide")
+                    }, 5000);
+                }
+
+                dialog.play = function(){
+
+                }
+
+                dialog.close = function(){
+                    $mdDialog.hide();
+                }
+
+                dialog.keyEvents = function($event){
+                    if ($event.keyCode == 39){
+                        dialog.next();
+                    } else if ($event.keyCode == 37){
+                        dialog.back();
+                    }
+                }
+
                 dialog.init = function() {
+                    dialog.timeout = dialog.hideButtons();
                 };
               },
               templateUrl: 'partials/home/dialog.slider.html',
               parent: angular.element(document.body),
               targetEvent: ev,
-              clickOutsideToClose:true,
+              clickOutsideToClose:false,
               fullscreen: true,
               escapeToClose: true,
               locals: {

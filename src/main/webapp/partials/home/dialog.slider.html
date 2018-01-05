@@ -1,9 +1,18 @@
-<md-dialog aria-label="Title" class="dialog-container">
+<md-dialog aria-label="Title" class="dialog-container" ng-class="{hideCommands: DialogSlider.hide}"
+           ng-init="DialogSlider.init()"
+           ng-keyup="DialogSlider.keyEvents($event)"
+           ng-mousemove="DialogSlider.displayButtons($event)">
     <img ng-src="{{DialogSlider.src}}"/>
-    <div ng-click="DialogSlider.back()" class="back-button">
+    <md-button ng-click="DialogSlider.close()" class="sliderCommands close-button" aria-label="Close">
+        <i class="fa fa-times-circle" aria-hidden="true"></i>
+    </md-button>
+    <md-button ng-click="DialogSlider.play()" class="sliderCommands play-button" aria-label="Play">
+        <i class="fa fa-play-circle" aria-hidden="true"></i>
+    </md-button>
+    <md-button ng-click="DialogSlider.back()" class="sliderCommands back-button" aria-label="Back">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
-    </div>
-    <div ng-click="DialogSlider.next()" class="next-button">
+    </md-button>
+    <md-button ng-click="DialogSlider.next()" class="sliderCommands next-button" aria-label="Next">
         <i class="fa fa-chevron-right" aria-hidden="true"></i>
-    </div>
+    </md-button>
 </md-dialog>
