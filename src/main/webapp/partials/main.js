@@ -7,7 +7,7 @@
 
     MainService.$inject = ['$rootScope', 'SERVICE', '$http', '$q', '$state', 'Utils'];
     MainCtrl.$inject = ['$log', '$rootScope', '$document', '$element',
-                        '$mdSidenav', '$mdMedia', '$mdMenu', '$scope', 'MainService',
+                        '$timeout', '$window', '$mdMedia', '$mdMenu', '$scope', 'MainService',
                         'CONSTANTS'];
 
     function MainService($rootScope, SERVICE, $http, $q, $state, Utils) {
@@ -25,7 +25,7 @@
         }
     }
 
-    function MainCtrl($log, $rootScope, $document, $element, $mdSidenav,
+    function MainCtrl($log, $rootScope, $document, $element, $timeout, $window,
                         $mdMedia, $mdMenu, $scope, MainService, CONSTANTS) {
         var self = this;
 
@@ -98,6 +98,24 @@
         self.openUnSelectMenu = function($mdMenu) {
             $mdMenu.open();
         };
+
+        self.loadMore = false;
+
+//        $scope.$on("LOADED", function(event){
+//            self.loadMore = false;
+//        });
+//        $timeout(function(){
+//            angular.element(document.querySelector('#main-view')).bind('scroll', function($event){
+//                var height = Math.max($event.currentTarget.scrollHeight,$event.currentTarget.offsetHeight);
+//                var percentagePageScrolled = $event.currentTarget.scrollTop / height * 100;
+//                if(!self.loadMore && percentagePageScrolled >= 70){
+//                    $log.info("LOAD MORE");
+//                    self.loadMore = true;
+//                    $rootScope.$broadcast("LOAD-MORE", status);
+//                }
+//
+//            });
+//        }, 300);
 
         self.init = function() {
 
