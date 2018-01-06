@@ -15,7 +15,7 @@
 										  Acquisto: Per consigli, correzioni o informazioni sull'acquisto di foto in formato originale contattare
 										  Claudio Poli all'indirizzo info@policlaudio.com"/>
     <meta property="og:url" content="http://policlaudio.com"/>
-    <meta property="og:image" content="http://policlaudio.com/img/logo-small.png"/>
+    <meta property="og:image" content="https://poli-claudio.appspot.com/img/icon-192x192.png"/>
 
     <meta name="robots" content="index,follow,snippet,odp,archive,imageindex"/>
     <meta name="googlebot" content="index,follow,snippet,odp,archive,imageindex"/>
@@ -24,9 +24,11 @@
     <meta name="description" content="Vi aspettano per festeggiare il loro Matrimonio!">
     <meta name="author" content="Simone Tallevi-Diotallevi">
 
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+
+    <link href="manifest.json" rel="manifest">
 
     <title>Claudio Poli - Fotografia Macro e Naturalistica</title>
 
@@ -35,8 +37,6 @@
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- Custom styles for this template -->
     <link href="css/app.css" rel="stylesheet" type="text/css">
-
-    <link href="manifest.json" rel="manifest">
 
     <script src="vendor/jquery/jquery.min.js"></script>
 
@@ -58,7 +58,7 @@
 
 </head>
 
-<body ng-controller="MainCtrl as Main" ng-init="Main.init()">
+<body ng-controller="MainCtrl as Main" ng-init="Main.init()" ng-cloak>
 
     <md-toolbar id="top-toolbar" class="md-primary md-hue-2">
         <div class="md-toolbar-tools" layout="row">
@@ -66,14 +66,11 @@
             <div ng-if="Main.sliceIndex[0] > 1" layout="row">
                 <md-menu>
                     <md-button aria-label="" ng-click="Main.openUnSelectMenu($mdMenu)" class="md-accent" style="position:relative">
-                        ... <i class="fa fa-caret-down" aria-hidden="true"></i>
-                        <div class="menu-counter">
-                            <span>{{Main.sliceIndex[0]}}</span>
-                        </div>
+                        {{Main.sliceIndex[0]}}... <i class="fa fa-caret-down" aria-hidden="true"></i>
                     </md-button>
                     <md-menu-content width="4">
                         <md-menu-item ng-repeat="filter in Main.selectedFilters | slice:0:Main.sliceIndex[0]">
-                            <md-button ng-click="Main.unselectFilter($index)">{{filter}}</md-button>
+                            <md-button ng-click="Main.unselectFilterMenu($index)">{{filter}}</md-button>
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>

@@ -49,6 +49,25 @@
             self.sliceIndex = self.calcSliceIndex();
         }
 
+        self.unselectFilterMenu = function(index){
+            if(index >= 0){
+                var item = self.selectedFilters[index];
+                var newIndexOfSelectedItem = index - 1;
+                if(newIndexOfSelectedItem >= 0){
+                    self.selected = self.selectedFilters[newIndexOfSelectedItem];
+                    self.selectedFilters = self.selectedFilters.slice(0, newIndexOfSelectedItem);
+                }else{
+                    self.selected = null;
+                    self.selectedFilters = [];
+                }
+                self.onSelect(item);
+            } else{
+                self.selected = null;
+                self.selectedFilters = [];
+                self.onSelect('categories');
+            }
+
+        }
         self.unselectFilter = function(index){
             if(index >= 0 && self.sliceIndex[0] + index >= 0){
                 var item;

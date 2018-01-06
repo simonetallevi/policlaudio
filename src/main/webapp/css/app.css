@@ -71,6 +71,8 @@ html {
 .md-toolbar-tools .md-button{
     margin-left: 0px;
     margin-right: 0px;
+    min-width: 40px;
+    text-transform: capitalize;
 }
 
 .home-container{
@@ -204,4 +206,8 @@ html {
 
 md-grid-tile{
     cursor:pointer;
+}
+
+md-menu-item>.md-button{
+    text-transform: capitalize;
 }
