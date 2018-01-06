@@ -57,7 +57,7 @@
         $scope.$on("LOAD-MORE", function(event, status){
             var previousIndex = self.tiles.length;
             self.loadMoreTiles();
-            self.selectImg(previousIndex, status);
+            $scope.$emit("LOADED");
         });
 
         self.selectImg = function(index, status, ev){
@@ -71,6 +71,11 @@
                 dialog.play = (inputs.status && inputs.status.play) ? true : false;
 
                 dialog.src="http://policlaudio.com/photos/"+inputs.images[inputs.currentIndex].img;
+
+                $scope.$on("LOADED", function(event){
+                    dialog.next();
+                });
+
                 dialog.next = function(){
                     if(inputs.currentIndex + 1 < inputs.images.length){
                         inputs.currentIndex += 1;
