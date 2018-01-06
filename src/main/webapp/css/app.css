@@ -25,6 +25,12 @@ html {
     color:white;
 }
 
+@media (max-width: 599px){
+    .md-toolbar-tools .md-button{
+        font-size: 10px;
+    }
+}
+
 #main-view{
     height: calc(100% - 130px);
     position: relative;
