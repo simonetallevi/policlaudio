@@ -2,18 +2,39 @@
            ng-init="DialogSlider.init()"
            ng-keyup="DialogSlider.keyEvents($event)"
            ng-mousemove="DialogSlider.displayButtons($event)">
-    <img ng-src="{{DialogSlider.src}}"/>
-    <md-button ng-click="DialogSlider.close()" class="sliderCommands close-button" aria-label="Close">
-        <i class="fa fa-times-circle" aria-hidden="true"></i>
-    </md-button>
-    <md-button ng-click="DialogSlider.togglePlay()" class="sliderCommands play-button" aria-label="Play">
-        <i ng-if="!DialogSlider.play" class="fa fa-play-circle" aria-hidden="true"></i>
-        <i ng-if="DialogSlider.play" class="fa fa-stop-circle" aria-hidden="true"></i>
-    </md-button>
-    <md-button ng-click="DialogSlider.back()" class="sliderCommands back-button" aria-label="Back">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-    </md-button>
-    <md-button ng-click="DialogSlider.next()" class="sliderCommands next-button" aria-label="Next">
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-    </md-button>
+    <md-content flex class="main-slider-container">
+        <div class="image-container">
+            <img ng-src="{{DialogSlider.src}}"/>
+            <md-button ng-click="DialogSlider.close()" class="sliderCommands close-button" aria-label="Close">
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+            </md-button>
+            <md-button ng-click="DialogSlider.togglePlay()" class="sliderCommands play-button" aria-label="Play">
+                <i ng-if="!DialogSlider.play" class="fa fa-play-circle" aria-hidden="true"></i>
+                <i ng-if="DialogSlider.play" class="fa fa-stop-circle" aria-hidden="true"></i>
+            </md-button>
+            <md-button ng-click="DialogSlider.back()" class="sliderCommands back-button" aria-label="Back">
+                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            </md-button>
+            <md-button ng-click="DialogSlider.next()" class="sliderCommands next-button" aria-label="Next">
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </md-button>
+        </div>
+        <md-content flex layout-padding class="slider-footer">
+            animalia > arthropoda > arachnida > araneae > araneidae > argiope > bruennichi > argiope fasciata - Bialowieza ( 12-9-2017 )
+        </md-content>
+    </md-content>
+    <!--<img ng-src="{{DialogSlider.src}}"/>-->
+    <!--<md-button ng-click="DialogSlider.close()" class="sliderCommands close-button" aria-label="Close">-->
+        <!--<i class="fa fa-times-circle" aria-hidden="true"></i>-->
+    <!--</md-button>-->
+    <!--<md-button ng-click="DialogSlider.togglePlay()" class="sliderCommands play-button" aria-label="Play">-->
+        <!--<i ng-if="!DialogSlider.play" class="fa fa-play-circle" aria-hidden="true"></i>-->
+        <!--<i ng-if="DialogSlider.play" class="fa fa-stop-circle" aria-hidden="true"></i>-->
+    <!--</md-button>-->
+    <!--<md-button ng-click="DialogSlider.back()" class="sliderCommands back-button" aria-label="Back">-->
+        <!--<i class="fa fa-chevron-left" aria-hidden="true"></i>-->
+    <!--</md-button>-->
+    <!--<md-button ng-click="DialogSlider.next()" class="sliderCommands next-button" aria-label="Next">-->
+        <!--<i class="fa fa-chevron-right" aria-hidden="true"></i>-->
+    <!--</md-button>-->
 </md-dialog>
