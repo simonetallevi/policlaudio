@@ -4,18 +4,18 @@ import com.google.appengine.api.utils.SystemProperty;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class AppEnvironment {
+public class EnvConstants {
 
     public static final String APP_NAME = "Simo & Stefi Wedding";
 
     public static String APP_ID;
 
-    public static AppConfig CONFIG;
+    public static EnvConfig CONFIG;
 
     public static String emailAddressMaintenance = "simone.tallevi@gmail.com";
 
     public static void init() {
-        CONFIG = AppConfig.get();
+        CONFIG = EnvConfig.get();
         APP_ID = CONFIG.applicationId;
     }
 
