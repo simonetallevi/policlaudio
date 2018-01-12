@@ -33,7 +33,7 @@ public abstract class AbstractServlet extends HttpServlet {
         post(getPayload(req), req, resp);
     }
 
-    protected abstract void get(Map<String, String> parameters, HttpServletRequest req, HttpServletResponse resp) throws Throwable;
+    protected abstract void get(Map<String, String> parameters, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException;
     protected abstract void post(JsonObject input, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException;
 
     protected static Map<String, String> getParams(HttpServletRequest req){
