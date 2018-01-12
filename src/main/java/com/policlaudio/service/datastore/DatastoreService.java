@@ -17,10 +17,6 @@ import java.util.List;
 @Slf4j
 public class DatastoreService {
 
-    public DatastoreService() {
-    }
-
-
     public Objectify ofy() {
         return ObjectifyService.ofy();
     }
