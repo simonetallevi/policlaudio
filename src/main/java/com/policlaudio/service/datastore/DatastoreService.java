@@ -1,6 +1,5 @@
 package com.policlaudio.service.datastore;
 
-import com.google.appengine.api.NamespaceManager;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;
 import com.google.common.base.Function;
@@ -18,13 +17,9 @@ import java.util.List;
 @Slf4j
 public class DatastoreService {
 
-    @Getter
-    private final String space;
-
-    public DatastoreService(String space) {
-        this.space = space;
-        NamespaceManager.set(space);
+    public DatastoreService() {
     }
+
 
     public Objectify ofy() {
         return ObjectifyService.ofy();
@@ -58,11 +53,15 @@ public class DatastoreService {
         }
     }
 
+    public <T>QueryExecutor<T> getExecutor(Query<T> query){
+        return new QueryExecutor<>(query);
+    }
+
     public <V> Key createKey(final Class<V> clazz, final Object id) {
         return createKey(null, clazz, id);
     }
 
-    public <V> Key createKey(final Key<V> parentKey, final Class<V> clazz, final Object id) {
+    public <V,P> Key createKey(final Key<P> parentKey, final Class<V> clazz, final Object id) {
 
         if (!(id instanceof String) && !(id instanceof Long)) {
             throw new IllegalStateException("Only supported Long and String id");
