@@ -3,11 +3,14 @@ package com.policlaudio.service.datastore;
 import com.google.appengine.api.datastore.QueryResultIterator;
 import com.google.common.base.Function;
 import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Builder
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class PagedDatastoreConsumer<T> extends PagedDatastoreConsumerAbs<QueryResultIterator<T>> {
 
     private List<T> pageResults = new ArrayList<>();

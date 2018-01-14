@@ -44,7 +44,8 @@ public class DatastoreServiceTest {
     @Test
     public void doTest() {
         DatastoreService datastoreService = new DatastoreService();
-        Media media = Media.builder().id("id1").build();
+        Media media = new Media();
+        media.setId("id1");
         datastoreService.ofy().save().entity(media).now();
 
         Media foodRetrieved = datastoreService.ofy().load().type(Media.class).id("id1").now();

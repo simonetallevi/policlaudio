@@ -3,7 +3,9 @@ package com.policlaudio.model;
 import com.google.gson.JsonObject;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.policlaudio.config.EnvConfig;
 import com.policlaudio.config.EnvConstants;
+import com.policlaudio.service.datastore.DatastoreService;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +18,7 @@ import java.util.Map;
 public class Config {
 
     @Id
-    private String id;
+    private String id = EnvConstants.APP_ID;
 
     private Map<String, String> values = new HashMap<>();
 
@@ -46,6 +48,8 @@ public class Config {
             }
         }
         config = c;
+        DatastoreService datastoreService = new DatastoreService();
+        datastoreService.ofy().save().entity(c);
         return c;
     }
 
