@@ -36,7 +36,7 @@ public class Config {
         if (config != null && force == false) {
             return config;
         }
-        return config;
+        return getEmptyConfig();
     }
 
     public static Config G(JsonObject obj){

@@ -14,7 +14,7 @@ public class EnvConstants {
 
     public static String emailAddressMaintenance = "simone.tallevi@gmail.com";
 
-    public static void init() {
+    static{
         CONFIG = EnvConfig.get();
         APP_ID = CONFIG.applicationId;
     }
